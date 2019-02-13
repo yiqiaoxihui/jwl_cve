@@ -5,14 +5,20 @@
 @section('content')
 <div style="text-align:center;">
 
-<input type="hidden" id="serverid" value="{{$server->id}}">
-<input type="text" name="name" id="name" class="form-control" value="{{$server->name}}" placeholder="server name">
+<input type="hidden" id="id" value="{{$cve->id}}">
+<input type="text" name="cve_id" id="cve_id" class="form-control" value="{{$cve->cve_id}}" placeholder="cve 编号">
 <br>
-<input name="serverNumber" id="serverNumber"class="form-control" value="{{$server->serverNumber}}" placeholder="server id">
+<input name="cve_status" id="cve_status"class="form-control" value="{{$cve->cve_status}}" placeholder="cve 状态">
 <br>
-<input name="address" id="address"class="form-control" value="{{$server->address}}" placeholder="server url">
+<input name="cve_description" id="cve_description"class="form-control" value="{{$cve->cve_description}}" placeholder="cve description">
 <br>
-<input name="IP" id="IP"class="form-control" value="{{$server->IP}}" placeholder="server IP">
+<input name="cve_references" id="cve_references"class="form-control" value="{{$cve->cve_references}}" placeholder="cve references">
+<br>
+<input name="cve_phase" id="cve_phase"class="form-control" value="{{$cve->cve_phase}}" placeholder="cve phase">
+<br>
+<input name="cve_votes" id="cve_votes"class="form-control" value="{{$cve->cve_votes}}" placeholder="cve votes">
+<br>
+<input name="cve_comments" id="cve_comments"class="form-control" value="{{$cve->cve_comments}}" placeholder="cve comments">
 <br>
 <button class="btn btn-default" onclick="editone()" >修改</button>
 </div>
@@ -24,16 +30,27 @@
 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 
     function editone(){
-        var id=document.getElementById('serverid').value;
-        var name=document.getElementById('name').value;
-        var address=document.getElementById('address').value;
-        var serverNumber=document.getElementById('serverNumber').value;
-        var IP=document.getElementById('IP').value;
-        console.log(id);console.log(serverNumber);
+        var id=document.getElementById('id').value;
+        var cve_id=document.getElementById('cve_id').value;
+        var cve_status=document.getElementById('cve_status').value;
+        var cve_description=document.getElementById('cve_description').value;
+        var cve_references=document.getElementById('cve_references').value;
+        var cve_phase=document.getElementById('cve_phase').value;
+        var cve_votes=document.getElementById('cve_votes').value;
+        var cve_comments=document.getElementById('cve_comments').value;        
+        console.log(id);
         $.ajax({
             type: 'post',
-            url : "../serverEditOk",
-            data : {"id":id,"address":address,"serverNumber":serverNumber,"IP":IP,"name":name},
+            url : "../cveEditOk",
+            data : {"id":id,
+                    "cve_id":cve_id,
+                    "cve_status":cve_status,
+                    "cve_references":cve_references,
+                    "cve_description":cve_description,
+                    'cve_votes':cve_votes,
+                    'cve_comments':cve_comments,
+                    'cve_phase':cve_phase
+                },
             dataType:'JSON', 
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

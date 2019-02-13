@@ -80,13 +80,14 @@
       <ul class="nav navbar-nav">
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-               节点管理
+               漏洞库管理
                <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="{{url("admin")}}">节点管理</a></li>
+              <li><a href="{{url("admin")}}">漏洞库管理</a></li>
+              <li><a href="{{url("admin/cveToday")}}">最新漏洞</a></li>
             </ul>
-         </li>
+        </li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                虚拟机镜像管理 

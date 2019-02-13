@@ -41,10 +41,11 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function() {
 });
 Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'admin'], function() {  
     Route::get('/', 'HomeController@index');
-    Route::post('addServer', 'HomeController@addServer');
-    Route::get('serverEdit/{id}', 'HomeController@serverEdit');
-    Route::post('serverEditOk', 'HomeController@serverEditOk');
-    Route::post('serverDelete', 'HomeController@serverDelete');
+    Route::get('cveToday', 'HomeController@cve_today');
+    Route::post('addCve', 'HomeController@cve_add');
+    Route::get('cveEdit/{id}', 'HomeController@cve_edit');
+    Route::post('cveEditOk', 'HomeController@cve_edit_ok');
+    Route::post('cveDelete', 'HomeController@cve_delete');
     Route::post('serverStop', 'HomeController@serverStop');
     Route::post('serverStart', 'HomeController@serverStart');
     Route::get('fileRestoreNew', 'HomeController@fileRestoreNew'); 

@@ -3,77 +3,73 @@
 @section('title', '后台管理')
 
 @section('content')
-<h2>当前监控节点</h2>
+<h2>本地漏洞库</h2>
     <div class="table-outline">
         <table class="table">
             <thead>
                 <tr style="height:60px;">
-                    <th style="">ID</th>
-                    <th>服务器名称</th>
-                    <th>服务器编号</th>
-                    <th>IP</th>
-                    <th>URL</th>
-                    <th>监控时间</th>
-                    <th>原始镜像数量</th>
-                    <th>增量镜像数量</th>
-                    <th>监控状态</th>
+                    <th >ID</th>
+                    <th>漏洞编号</th>
+                    <th>漏洞状态</th>
+                    <th>漏洞描述</th>
+                    <th>参考数据库</th>
+                    <th>phase</th>
+                    <th>投票</th>
+                    <th>评论</th>
+                    <!-- <th>更新时间</th> -->
                     <th>管理操作</th>
                 </tr>
             </thead>
             <tbody>
-                 @foreach ($servers as $server)
+                 @foreach ($cves as $cve)
                 <tr>
-                    <td >{{$server->id}}</td>
-                    <td>{{$server->name}}</td>
-                    <td>{{$server->serverNumber}}</td>
-                    <td>{{$server->IP}}</td>
-                    <td>{{$server->address}}</td>
-                    <td >{{$server->created_at}}</td>
-                    <td >{{count($server->baseImages)}}</td>
-                    <td >{{count($server->overlays)}}</td>
-                    <td>
-                    @if($server->status===1)
+                    <td >{{$cve->id}}</td>
+                    <td style="max-width:160px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap">{{$cve->cve_id}}</td>
+                    <td >{{$cve->cve_status}}</td>
+                    <td style="max-width:200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap"><div title="{{$cve->cve_description}}"> {{$cve->cve_description}}</div></td>
+                    <td style="max-width:200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap"><div title="{{$cve->cve_references}}"> {{$cve->cve_references}}</div></td>
+                    <td style="max-width:180px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap"><div title="{{$cve->cve_phase}}"> {{$cve->cve_phase}}</div></td>
+                    <td style="max-width:200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap"><div title="{{$cve->cve_votes}}"> {{$cve->cve_votes}}</div></td>
+                    <td style="max-width:200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap"><div title="{{$cve->cve_comments}}">{{$cve->cve_comments}}</div></td>
+<!--                     <td style="max-width:120px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap">
+                        {{$cve->created_at}}
+                    @if($cve->status===1)
                     <span style="color: #5cb85c">监控中</span>
-                    @elseif($server->status===0)
+                    @elseif($cve->status===0)
                      <span style="color: #5bc0de">已停止</span>
                     @else
                     <span style="color: #d9534f">故障</span>
                     @endif
-                    </td>
+                    </td> -->
 
-                    <td >
-                        
-                    @if($server->status===1)
-                    <button type="button" class="btn btn-warning" onclick="serverStop({{$server->id}})">停止</button>
-                    @else
-                     <button type="button" class="btn btn-success" onclick="serverStart({{$server->id}})">启动</button>
-                    @endif
-                        <button class="btn btn-primary"type="button" onclick="serverEdit({{$server->id}})">修改
+                    <td style="max-width:200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap">
+                        <button class="btn btn-primary"type="button" onclick="cve_edit({{$cve->id}})">修改
                         </button>
-                        <button class="btn btn-danger"type="button" onclick="serverDelete({{$server->id}})">删除
+                        <button class="btn btn-danger"type="button" onclick="cve_delete({{$cve->id}})">删除
                         </button>
                     </td>
                 </tr>
                 @endforeach
                 <tr class="info">
                     <td >添加</td>
-                    <td ><input type="text" id="name" style="height:34px;" placeholder="请输入节点名称"></td>
+                    <td ><input type="text" id="cve_id" style="height:34px;" placeholder="请输入cve编号"></td>
                     <td>
-                        <input type="text" class="form-control" id="serverNumber" placeholder="请输入服务器编号">
+                        <input type="text" class="form-control" id="cve_status" placeholder="请输入cve状态">
                     </td>
-                    <td ><input type="text" class="form-control" id="IP" placeholder="请输入IP"></td>
-                    <td><input type="text" class="form-control" id="address" placeholder="请输入URL"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td ><input type="text" class="form-control" id="cve_description" placeholder="请输入cve描述"></td>
+                    <td><input type="text" class="form-control" id="cve_references" placeholder="请输入参考数据库"></td>
+                    <td><input type="text" class="form-control" id="cve_phase" placeholder="请输入phase"></td>
+                    <td><input type="text" class="form-control" id="cve_votes" placeholder="请输入投票"></td>
+                    <td><input type="text" class="form-control" id="cve_comments" placeholder="请输入评论"></td>
+                    <!-- <td></td> -->
+                    <!-- <td></td> -->
                     <td >
                         <button class="btn btn-default" type="button" onclick="addone()" id="pid" >添加</button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="pagination">{!! $servers->render() !!}</div>
+        <div class="pagination">{!! $cves->render() !!}</div>
     </div>
 
 @endsection
@@ -86,15 +82,25 @@
     // console.log(nowdate);
     // document.getElementById("datetimepicker").value=nowdate;
     function addone(){
-        var name=document.getElementById('name').value;
-        var serverNumber=document.getElementById('serverNumber').value;
-        var address=document.getElementById('address').value;
-        var IP=document.getElementById('IP').value;
-        console.log(name);
+        var cve_id=document.getElementById('cve_id').value;
+        var cve_status=document.getElementById('cve_status').value;
+        var cve_references=document.getElementById('cve_references').value;
+        var cve_description=document.getElementById('cve_description').value;
+        var cve_votes=document.getElementById('cve_votes').value;
+        var cve_comments=document.getElementById('cve_comments').value;
+        var cve_phase=document.getElementById('cve_phase').value;
+        console.log(cve_id);
         $.ajax({
             type: 'post',
-            url : "admin/addServer",
-            data : {"name":name,"serverNumber":serverNumber,"address":address,"IP":IP},
+            url : "admin/addCve",
+            data : {"cve_id":cve_id,
+                    "cve_status":cve_status,
+                    "cve_references":cve_references,
+                    "cve_description":cve_description,
+                    'cve_votes':cve_votes,
+                    'cve_comments':cve_comments,
+                    'cve_phase':cve_phase
+                },
             dataType:'JSON', 
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -130,14 +136,14 @@
         //     console.log(key+":"+response[key]);
         // }
     }
-    function serverEdit(id){
+    function cve_edit(id){
         console.log(id);
         layer.open({
           type: 2,
           area: ['500px', '800px'],
           fix: false, //不固定
           maxmin: true,
-          content: 'admin/serverEdit/'+id,
+          content: 'admin/cveEdit/'+id,
           cancel:function(index){
             location.reload(true);
           }
@@ -147,7 +153,7 @@
     function Delete(id){
             $.ajax({
                 type: 'post',
-                url : "admin/serverDelete",
+                url : "admin/cveDelete",
                 data : {"id":id},
                 dataType:'JSON', 
                 headers: {
@@ -165,8 +171,8 @@
 
             });
     }
-    function serverDelete(id){
-        layer.msg('删除后该节点镜像也会被删除，确定删除？', {
+    function cve_delete(id){
+        layer.msg('确定删除？', {
           time: 0 //不自动关闭
           ,btn: ['删除', '取消']
           ,yes: function(index){
@@ -177,48 +183,6 @@
             //   ,btn: ['关闭']
             // });
           }
-        });
-    }
-    function serverStop(id){
-        $.ajax({
-            type: 'post',
-            url : "admin/serverStop",
-            data : {"id":id},
-            dataType:'JSON', 
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
-            success : function(data) {
-               if(data.status==1){
-                    layer.msg("停止成功！");
-                    location.reload(true);
-               }
-            },
-            error : function(err) {
-                layer.msg('停止失败！');
-            }
-
-        });
-    }
-    function serverStart(id){
-        $.ajax({
-            type: 'post',
-            url : "admin/serverStart",
-            data : {"id":id},
-            dataType:'JSON', 
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
-            success : function(data) {
-               if(data.status==1){
-                    layer.msg("启动成功！");
-                    location.reload(true);
-               }
-            },
-            error : function(err) {
-                layer.msg('启动失败！');
-            }
-
         });
     }
 </script>
