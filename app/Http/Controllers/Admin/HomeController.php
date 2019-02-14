@@ -32,8 +32,10 @@ class HomeController extends Controller
     }
     public function cve_today(Request $request)
     {
-        $cves= Cve::Orderby('id','desc')->limit(20)->paginate(5);
-        return view('admin/index',['cves'=>$cves]);
+        $last_cve=Cve::Orderby('id','desc')->first();
+        $last_cve_id=$last_cve->id;
+        $cves= Cve::where('id','>',$last_cve_id-20)->Orderby('id','desc')->paginate(5);
+        return view('admin/cveToday',['cves'=>$cves]);
     }
     public function cve_add(Request $request)
     {

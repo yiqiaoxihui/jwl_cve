@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import pymysql
- 
+import time
 headers = {}
 headers["User-Agent"] = "Mozilla/5.0 (Windows NT 5.2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30"
 headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
@@ -93,5 +93,6 @@ def getCVEDetail(list):
 		print(str(e))
  
 if __name__ == "__main__":
-	getCVEDetail(getCVES())
-
+	while True:
+		getCVEDetail(getCVES())
+		time.sleep(86400)
