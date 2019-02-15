@@ -92,7 +92,7 @@
         console.log(cve_id);
         $.ajax({
             type: 'post',
-            url : "../addCve",
+            url : "addCve",
             data : {"cve_id":cve_id,
                     "cve_status":cve_status,
                     "cve_references":cve_references,
@@ -143,7 +143,7 @@
           area: ['500px', '800px'],
           fix: false, //不固定
           maxmin: true,
-          content: '../cveEdit/'+id,
+          content: 'cveEdit/'+id,
           cancel:function(index){
             location.reload(true);
           }
@@ -153,7 +153,7 @@
     function Delete(id){
             $.ajax({
                 type: 'post',
-                url : "../cveDelete",
+                url : "cveDelete",
                 data : {"id":id},
                 dataType:'JSON', 
                 headers: {

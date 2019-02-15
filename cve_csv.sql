@@ -11,6 +11,6 @@ use cve;
 -- ) engine = MyISAM;
 
 load data local infile '/home/ly/allitems.csv'
-into table cve
+into table cves
 fields terminated by ',';
 

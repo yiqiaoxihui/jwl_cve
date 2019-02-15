@@ -38,7 +38,7 @@ def getCVES():# 获取最新到CVE链接，返回链接的列表
  
 def getCVEDetail(list):
 	try:
-		db = pymysql.connect("localhost","root","","cve")
+		db = pymysql.connect("localhost","root","yiqiaoxihui","cve")
 		print("连接数据库成功！")
 		cursor = db.cursor()
 		print("开始采集漏洞信息入库！")

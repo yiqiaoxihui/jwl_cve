@@ -46,6 +46,13 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'admin'
     Route::get('cveEdit/{id}', 'HomeController@cve_edit');
     Route::post('cveEditOk', 'HomeController@cve_edit_ok');
     Route::post('cveDelete', 'HomeController@cve_delete');
+
+    Route::get('cnvd', 'HomeController@cnvd');
+    Route::post('addCnvd', 'HomeController@cnvd_add');
+    Route::get('cnvdEdit/{id}', 'HomeController@cnvd_edit');
+    Route::post('cnvdEditOk', 'HomeController@cnvd_edit_ok');
+    Route::post('cnvdDelete', 'HomeController@cnvd_delete');
+
     Route::post('serverStop', 'HomeController@serverStop');
     Route::post('serverStart', 'HomeController@serverStart');
     Route::get('fileRestoreNew', 'HomeController@fileRestoreNew'); 

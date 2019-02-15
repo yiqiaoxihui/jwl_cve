@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Server;
 use App\Cve;
+use App\Cnvd;
 use App\FileRestoreRecord;
 class HomeController extends Controller
 {
@@ -102,6 +103,80 @@ class HomeController extends Controller
     }
 
 
+    /********************cnvd********************/
+    public function cnvd(Request $request)
+    {
+        $cnvds= Cnvd::Orderby('id','asc')->paginate(5);
+        return view('admin/cnvd',['cnvds'=>$cnvds]);
+    }
+    public function cnvd_today(Request $request)
+    {
+        $last_cnvd=Cnvd::Orderby('id','desc')->first();
+        $last_cnvd_id=$last_cnvd->id;
+        $cnvds= Cnvd::where('id','>',$last_cnvd_id-20)->Orderby('id','desc')->paginate(5);
+        return view('admin/cnvdToday',['cnvds'=>$cnvds]);
+    }
+    public function cnvd_add(Request $request)
+    {
+        $info['status']=1;
+        $this->validate($request, [
+            'cnvd_id' => 'required|max:20',
+            'cnvd_title' => 'required',
+            'cnvd_description' => 'required',
+            'cnvd_serverity' => 'required',  
+        ]);
+
+        $cnvd = new Cnvd;
+        $cnvd->cnvd_id = $request->get('cnvd_id');
+        $cnvd->cnvd_title = $request->get('cnvd_title');
+        $cnvd->cnvd_description = $request->get('cnvd_description');
+        $cnvd->cnvd_serverity = $request->get('cnvd_serverity');
+        $cnvd->cnvd_products = $request->get('cnvd_products');
+        $cnvd->cnvd_formalWay = $request->get('cnvd_formalWay');
+        $cnvd->cnvd_submitTime = $request->get('cnvd_submitTime');
+        if ($cnvd->save()) {
+            return json_encode($info);
+        } else {
+            return Redirect::back()->withInput()->withErrors('保存失败！!!');
+        }
+    }
+
+    public function cnvd_edit($id)
+    {
+        $cnvd=Cnvd::find($id);
+        return view('admin/cnvdEdit',['cnvd'=>$cnvd]);
+    }
+
+    public function cnvd_edit_ok(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'cnvd_id' => 'required|max:20',
+            'cnvd_title' => 'required',
+            'cnvd_description' => 'required',
+            'cnvd_serverity' => 'required',  
+        ]);
+        $info['status']=1;
+        $cnvd = Cnvd::find($request->get('id'));
+        $cnvd->cnvd_id = $request->get('cnvd_id');
+        $cnvd->cnvd_title = $request->get('cnvd_title');
+        $cnvd->cnvd_description = $request->get('cnvd_description');
+        $cnvd->cnvd_serverity = $request->get('cnvd_serverity');
+        $cnvd->cnvd_products = $request->get('cnvd_products');
+        $cnvd->cnvd_formalWay = $request->get('cnvd_formalWay');
+        $cnvd->cnvd_submitTime = $request->get('cnvd_submitTime');
+        if ($cnvd->save()) {
+            return  json_encode($info);
+        } else {
+            return Redirect::back()->withInput()->withErrors('修改失败!!!');
+        }
+    }
+    public function cnvd_delete(Request $request){
+        $info['status']=1;
+        Cnvd::destroy($request->get('id'));
+        //echo $status;
+        return json_encode($info);
+    }
 
 
     /**
@@ -170,3 +245,4 @@ class HomeController extends Controller
         //
     }
 }
+
