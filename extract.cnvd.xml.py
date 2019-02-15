@@ -6,19 +6,23 @@ import requests
 import re
 import pymysql
 
-def main():
-	file_path=sys.argv[1]
-	print file_path
-	try:
-		db = pymysql.connect("localhost","root","yiqiaoxihui","cve")
-		print("connect mysql successful")
-		cursor = db.cursor()
-	except Exception as e:
-		print e
+
+global db,cursor
+def deal_mutil_file(file_dir):
+	list_dir = os.listdir(file_dir)
+	for file in list_dir:
+		if file[-4:]==".xml":
+			try:
+				print file
+				parse_and_insert(file)
+			except Exception as e:
+				print e,file
+
+def parse_and_insert(file_path):
 	tree = ET.parse(file_path)
 	root = tree.getroot()
-	print root.tag
-	print root.attrib
+	#print root.tag
+	#print root.attrib
 	for item in root.findall('vulnerability'):
 		patchName=""
 		cnvd_formalWay=""
@@ -52,12 +56,12 @@ def main():
 		cnvd_submitTime=item.find("submitTime").text
 		#print patchName
 		sql="select * from cnvds where cnvd_id='%s'" % cnvd_id
-		print sql
+		#print sql
 		try:
 			status=cursor.execute(sql)
 			if status==1:
 				sql= "UPDATE cnvds SET cnvd_title='%s',cnvd_description='%s',cnvd_serverity='%s',cnvd_products='%s',cnvd_formalWay='%s',cnvd_patch='%s',cnvd_submitTime='%s' WHERE cnvd_id='%s'" % (cnvd_title,cnvd_description,cnvd_serverity,cnvd_products,cnvd_formalWay,cnvd_patch,cnvd_submitTime,cnvd_id)
-				print sql
+				#print sql
 				try:
 					cursor.execute(sql)
 					db.commit()
@@ -75,6 +79,21 @@ def main():
 					db.rollback()
 		except Exception as e:
 			print e
-	db.close()
+
+def main():
+	file_dir=sys.argv[1]
+	global db,cursor
+	try:
+		db = pymysql.connect("localhost","root","yiqiaoxihui","cve")
+		print("connect mysql successful")
+		cursor = db.cursor()
+	except Exception as e:
+		print e
+	
+	deal_mutil_file(file_dir)
+	try:
+		db.close()
+	except Exception as e:
+		raise e
 if __name__ == '__main__':
 	main()
