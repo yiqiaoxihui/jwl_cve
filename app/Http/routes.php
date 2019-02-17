@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function() {
 Route::group(['middleware' => 'auth','namespace' => 'Admin'], function() {  
        
 });
+//漏洞库
 Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'admin'], function() {  
     Route::get('/', 'HomeController@index');
     Route::get('cveToday', 'HomeController@cve_today');
@@ -53,11 +54,24 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'admin'
     Route::post('cnvdEditOk', 'HomeController@cnvd_edit_ok');
     Route::post('cnvdDelete', 'HomeController@cnvd_delete');
 
-    Route::post('serverStop', 'HomeController@serverStop');
-    Route::post('serverStart', 'HomeController@serverStart');
-    Route::get('fileRestoreNew', 'HomeController@fileRestoreNew'); 
+});
+//规则库
+Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'rule'], function() {  
+    //
+    Route::get('/', 'RulesController@rule');
+    Route::post('ruleAdd', 'RulesController@ruleAdd');
 
+    Route::post('ruleScan', 'RulesController@ruleScan');
+    Route::get('ruleEdit/{id}', 'RulesController@ruleEdit');
+    Route::post('ruleEditOk', 'RulesController@ruleEditOk'); 
+    Route::post('ruleDelete', 'RulesController@ruleDelete');
+});
 
+//扫描库
+Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'scan'], function() {  
+    //
+    Route::get('/', 'ScansController@scan');
+    Route::post('scanDelete', 'ScansController@scanDelete');
 });
 //同期比
 Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'image'], function() {  

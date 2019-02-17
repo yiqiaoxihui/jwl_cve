@@ -95,4 +95,5 @@ def getCVEDetail(list):
 if __name__ == "__main__":
 	while True:
 		getCVEDetail(getCVES())
+		print "wait for next..."
 		time.sleep(86400)

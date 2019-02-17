@@ -5,16 +5,38 @@ import xml.etree.ElementTree as ET
 import requests
 import re
 import pymysql
-
+import subprocess
+import time
 
 global db,cursor
+
+def auto_download_cnvd():
+	sums=0
+	fail=0
+	for i in range(357,532):
+		try:
+			cmd = 'wget -c http://www.cnvd.org.cn/shareData/download/'+str(i)
+			print cmd
+			#print "begin"
+			status = subprocess.call(cmd,shell=True)
+			if status !=0:
+				fail+=1
+				print "Download  failed:"+i
+			else:
+				sums+=1
+				print "Download success:"+i
+		except:
+		    print "Download except!"
+	print sums,fail
+
+
 def deal_mutil_file(file_dir):
 	list_dir = os.listdir(file_dir)
 	for file in list_dir:
-		if file[-4:]==".xml":
+		if True:			#file[-4:]==".xml":
 			try:
 				print file
-				parse_and_insert(file)
+				parse_and_insert(file_dir+"/"+file)
 			except Exception as e:
 				print e,file
 
