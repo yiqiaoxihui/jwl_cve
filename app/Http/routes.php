@@ -65,6 +65,8 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'rule']
     Route::get('ruleEdit/{id}', 'RulesController@ruleEdit');
     Route::post('ruleEditOk', 'RulesController@ruleEditOk'); 
     Route::post('ruleDelete', 'RulesController@ruleDelete');
+    Route::get('newScan/{id}', 'RulesController@newScan');
+    Route::post('launchScanOk', 'RulesController@launchScanOk'); 
 });
 
 //扫描库

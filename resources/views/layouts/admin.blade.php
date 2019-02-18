@@ -105,6 +105,7 @@
                <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
+              <li><a href="{{url("rule")}}">规则管理</a></li>
                <li><a href="{{url("file/fileInfo")}}">文件管理</a></li>
                <li><a href="{{url("file/fileRestoreInfo")}}">文件还原管理</a></li>
                <li><a href="{{url("file/fileRestoreRecord")}}">文件还原记录</a></li>
@@ -112,10 +113,11 @@
          </li>
          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-               全盘扫描
+               扫描器
                <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
+              <li><a href="{{url("scan")}}">扫描管理</a></li>
                <li><a href="{{url("file/fileScan")}}">镜像扫描管理</a></li>
                <li><a href="{{url("file/fileScanRecord")}}">镜像扫描记录</a></li>
                <li><a href="{{url("virus/virus")}}">病毒库管理</a></li>

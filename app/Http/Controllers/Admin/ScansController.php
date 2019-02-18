@@ -8,17 +8,23 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Virus;
 use App\VirusKill;
-class VirusController extends Controller
+use App\Scan;
+class ScansController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function virus()
+    public function scan()
     {
-        $viruses=Virus::orderBy('id','asc')->paginate(9);
-        return view('admin/virus',['viruses'=>$viruses]);
+        $scans=Scan::orderBy('id','asc')->paginate(9);
+        return view('admin/scan',['scans'=>$scans]);
+    }
+    public function scanDelete(Request $request){
+        $info['status']=1;
+        Scan::destroy($request->get('id'));
+        return json_encode($info);
     }
     public function virusAdd(Request $request)
     {
