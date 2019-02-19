@@ -41,12 +41,12 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function() {
 });
 //漏洞库
 Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'admin'], function() {  
-    Route::get('/', 'HomeController@index');
+    Route::get('cve', 'HomeController@index');
     Route::get('cveToday', 'HomeController@cve_today');
     Route::post('addCve', 'HomeController@cve_add');
     Route::get('cveEdit/{id}', 'HomeController@cve_edit');
     Route::post('cveEditOk', 'HomeController@cve_edit_ok');
-    Route::post('cveDelete', 'HomeController@cve_delete');
+    Route::post('cveDelete', 'HomeController@cve_edit_ok');
 
     Route::get('cnvd', 'HomeController@cnvd');
     Route::post('addCnvd', 'HomeController@cnvd_add');
@@ -55,13 +55,22 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'admin'
     Route::post('cnvdDelete', 'HomeController@cnvd_delete');
 
 });
+//补丁库
+Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'patch'], function() {  
+    //
+    Route::get('patch', 'PatchController@patch');
+    Route::post('patchAdd', 'PatchController@patch_add');
+    
+    Route::get('patchEdit/{id}', 'PatchController@patch_edit');
+    Route::post('patchEditOk', 'PatchController@patch_edit_ok'); 
+    Route::post('patchDelete', 'PatchController@patch_delete'); 
+});
 //规则库
 Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'rule'], function() {  
     //
     Route::get('/', 'RulesController@rule');
     Route::post('ruleAdd', 'RulesController@ruleAdd');
 
-    Route::post('ruleScan', 'RulesController@ruleScan');
     Route::get('ruleEdit/{id}', 'RulesController@ruleEdit');
     Route::post('ruleEditOk', 'RulesController@ruleEditOk'); 
     Route::post('ruleDelete', 'RulesController@ruleDelete');
@@ -72,7 +81,10 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'rule']
 //扫描库
 Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'scan'], function() {  
     //
-    Route::get('/', 'ScansController@scan');
+    Route::get('newScan/{id}', 'ScansController@newScan');
+    Route::post('launchScanOk', 'ScansController@launchScanOk'); 
+    Route::get('scanControl', 'ScansController@scanControl');
+    Route::get('scanRecord', 'ScansController@scanRecord');
     Route::post('scanDelete', 'ScansController@scanDelete');
 });
 //同期比

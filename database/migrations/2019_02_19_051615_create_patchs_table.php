@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateScansTable extends Migration
+class CreatePatchsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,11 @@ class CreateScansTable extends Migration
      */
     public function up()
     {
-        Schema::create('scans', function (Blueprint $table) {
+        Schema::create('patches', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('rule_id');
-            $table->char('host',15);
-            $table->char('status',5);
-	    $table->text('scan_result');
-            $table->index('rule_id');
+            $table->char('cnvd_id',20);
+            $table->text('patch_description');
+            $table->index('cnvd_id');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateScansTable extends Migration
      */
     public function down()
     {
-        Schema::drop('scans');
+        Schema::drop('patchs');
     }
 }

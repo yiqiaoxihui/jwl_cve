@@ -6,19 +6,19 @@
 <div style="text-align:center;">
 
 <input type="hidden" id="id" value="{{$cnvd->id}}">
-<input type="text" id="cnvd_id" class="form-control" value="{{$cnvd->cnvd_id}}" placeholder="cnvd 编号">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >cnvd 编号:</p> <input type="text" style="width:80%;" id="cnvd_id" class="form-control" value="{{$cnvd->cnvd_id}}" placeholder="cnvd 编号">
 <br>
-<input id="cnvd_title"class="form-control" value="{{$cnvd->cnvd_title}}" placeholder="cnvd标题">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >补丁标题:</p> <input type="text" style="width:80%;" id="cnvd_id" class="form-control" value="{{$cnvd->cnvd_title}}" >
 <br>
-<input id="cnvd_description"class="form-control" value="{{$cnvd->cnvd_description}}" placeholder="cnvd description">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >补丁描述:</p> <input type="text" style="width:80%;" id="cnvd_description" class="form-control" value="{{$cnvd->cnvd_description}}" >
 <br>
-<input id="cnvd_serverity"class="form-control" value="{{$cnvd->cnvd_serverity}}" placeholder="危害级别：高/低/中">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >补丁标题:</p> <input type="text" style="width:80%;" id="cnvd_serverity" class="form-control" value="{{$cnvd->cnvd_serverity}}" placeholder="危害级别：高/低/中">
 <br>
-<input id="cnvd_products"class="form-control" value="{{$cnvd->cnvd_products}}" placeholder="影响产品">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >影响产品:</p> <input type="text" style="width:80%;" id="cnvd_products" class="form-control" value="{{$cnvd->cnvd_products}}" placeholder="影响产品">
 <br>
-<input id="cnvd_formalWay"class="form-control" value="{{$cnvd->cnvd_formalWay}}" placeholder="漏洞提交时间">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >补丁信息:</p> <input type="text" style="width:80%;" id="cnvd_formalWay" class="form-control" value="{{$cnvd->cnvd_formalWay}}" placeholder="请输入补丁信息">
 <br>
-<input id="cnvd_submitTime"class="form-control" value="{{$cnvd->cnvd_submitTime}}" placeholder="漏洞提交时间">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >漏洞提交时间:</p> <input type="text" style="width:80%;" id="cnvd_submitTime" class="form-control" value="{{$cnvd->cnvd_submitTime}}" placeholder="漏洞提交时间">
 <br>
 <button class="btn btn-default" onclick="editone()" >修改</button>
 </div>

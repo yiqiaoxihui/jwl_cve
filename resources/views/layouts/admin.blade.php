@@ -84,7 +84,7 @@
                <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="{{url("admin")}}">CVE漏洞库管理</a></li>
+              <li><a href="{{url("admin/cve")}}">CVE漏洞库管理</a></li>
               <li><a href="{{url("admin/cnvd")}}">CNVD漏洞库管理</a></li>
               <li><a href="{{url("admin/cveToday")}}">最新漏洞</a></li>
             </ul>
@@ -95,8 +95,9 @@
                <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-               <li><a href="{{url("image/base")}}">原始镜像</a></li>
-               <li><a href="{{url("image/overlay")}}">增量镜像</a></li>
+              <li><a href="{{url("patch/patch")}}">补丁管理</a></li>
+<!--                <li><a href="{{url("image/base")}}">原始镜像</a></li>
+               <li><a href="{{url("image/overlay")}}">增量镜像</a></li> -->
             </ul>
          </li>
          <li class="dropdown">
@@ -106,9 +107,9 @@
             </a>
             <ul class="dropdown-menu">
               <li><a href="{{url("rule")}}">规则管理</a></li>
-               <li><a href="{{url("file/fileInfo")}}">文件管理</a></li>
+<!--                <li><a href="{{url("file/fileInfo")}}">文件管理</a></li>
                <li><a href="{{url("file/fileRestoreInfo")}}">文件还原管理</a></li>
-               <li><a href="{{url("file/fileRestoreRecord")}}">文件还原记录</a></li>
+               <li><a href="{{url("file/fileRestoreRecord")}}">文件还原记录</a></li> -->
             </ul>
          </li>
          <li class="dropdown">
@@ -117,11 +118,12 @@
                <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="{{url("scan")}}">扫描管理</a></li>
-               <li><a href="{{url("file/fileScan")}}">镜像扫描管理</a></li>
+              <li><a href="{{url("scan/scanControl")}}">发起扫描</a></li>
+              <li><a href="{{url("scan/scanRecord")}}">扫描记录</a></li>
+<!--                <li><a href="{{url("file/fileScan")}}">镜像扫描管理</a></li>
                <li><a href="{{url("file/fileScanRecord")}}">镜像扫描记录</a></li>
                <li><a href="{{url("virus/virus")}}">病毒库管理</a></li>
-               <li><a href="{{url("virus/virusRecord")}}">杀毒记录</a></li>
+               <li><a href="{{url("virus/virusRecord")}}">杀毒记录</a></li> -->
             </ul>
          </li>
 <!--          <li class="dropdown">

@@ -18,7 +18,6 @@
 <script src="{{asset('layer/layer.js')}}"></script>
 <script type="text/javascript">
 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-
     function launch_scan(){
         var rule_id=document.getElementById('rule_id').value;
         var host=document.getElementById('host').value;  

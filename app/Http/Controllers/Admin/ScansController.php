@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Virus;
 use App\VirusKill;
 use App\Scan;
+use App\Rule;
 class ScansController extends Controller
 {
     /**
@@ -16,16 +17,49 @@ class ScansController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function scan()
+    public function scanControl()
+    {
+        $rules=Rule::orderBy('id','asc')->paginate(4);
+        return view('admin/scanControl',['rules'=>$rules]);
+    }   
+
+    public function newScan($id)
+    {
+        $rule = Rule::find($id);
+        return view('admin/newScan',['rule'=>$rule]);
+    }
+    public function launchScanOk(Request $request)
+    {
+        $this->validate($request, [
+            'rule_id' => 'required'
+        ]);
+        $info['status']=1;
+        $scan=new Scan;
+        $scan->rule_id = $request->get('rule_id');
+        $scan->host = $request->get('host');
+        $scan->status = "0";
+        if ($scan->save()) {
+            return  json_encode($info);
+        } else {
+            return Redirect::back()->withInput()->withErrors('发起失败!!!');
+        }  
+    }  
+    public function scanRecord()
     {
         $scans=Scan::orderBy('id','asc')->paginate(9);
-        return view('admin/scan',['scans'=>$scans]);
+        return view('admin/scanRecord',['scans'=>$scans]);
     }
     public function scanDelete(Request $request){
         $info['status']=1;
         Scan::destroy($request->get('id'));
         return json_encode($info);
     }
+
+
+
+
+
+
     public function virusAdd(Request $request)
     {
         $info['status']=1;

@@ -6,19 +6,19 @@
 <div style="text-align:center;">
 
 <input type="hidden" id="id" value="{{$cve->id}}">
-<input type="text" name="cve_id" id="cve_id" class="form-control" value="{{$cve->cve_id}}" placeholder="cve 编号">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >cve 编号:</p> <input type="text" style="width:80%;" id="cve_id" class="form-control" value="{{$cve->cve_id}}" placeholder="cve 编号">
 <br>
-<input name="cve_status" id="cve_status"class="form-control" value="{{$cve->cve_status}}" placeholder="cve 状态">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >cve 状态:</p> <input type="text" style="width:80%;" id="cve_status" class="form-control" value="{{$cve->cve_status}}" placeholder="cve 状态">
 <br>
-<input name="cve_description" id="cve_description"class="form-control" value="{{$cve->cve_description}}" placeholder="cve description">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >cve 描述:</p> <input type="text" style="width:80%;" id="cve_description" class="form-control" value="{{$cve->cve_description}}" placeholder="cve description">
 <br>
-<input name="cve_references" id="cve_references"class="form-control" value="{{$cve->cve_references}}" placeholder="cve references">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >cve 相关链接:</p> <input type="text" style="width:80%;" id="cve_references" class="form-control" value="{{$cve->cve_references}}" placeholder="cve 相关链接">
 <br>
-<input name="cve_phase" id="cve_phase"class="form-control" value="{{$cve->cve_phase}}" placeholder="cve phase">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >cve phase:</p> <input type="text" style="width:80%;" id="cve_phase" class="form-control" value="{{$cve->cve_phase}}" placeholder="cve phase">
 <br>
-<input name="cve_votes" id="cve_votes"class="form-control" value="{{$cve->cve_votes}}" placeholder="cve votes">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >cve votes:</p> <input type="text" style="width:80%;" id="cve_votes" class="form-control" value="{{$cve->cve_votes}}" placeholder="cve votes">
 <br>
-<input name="cve_comments" id="cve_comments"class="form-control" value="{{$cve->cve_comments}}" placeholder="cve comments">
+<p style ="float: left;margin-top:5px;margin-right: 5px;width: 80px;" >cve 评论:</p> <input type="text" style="width:80%;" id="cve_comments" class="form-control" value="{{$cve->cve_comments}}" placeholder="cve 评论">
 <br>
 <button class="btn btn-default" onclick="editone()" >修改</button>
 </div>

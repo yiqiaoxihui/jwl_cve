@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cnvd extends Model
+class Patch extends Model
 {
-    public function patch(){
-        return $this->hasOne('App\Patch','cnvd_id','cnvd_id');
+    public function cnvd(){
+        return $this->belongsTo('App\Cnvd','cnvd_id','cnvd_id');
     }
     // public function baseImages(){
     // 	//return $this->hasMany('App\Comment', 'foreign_key', 'local_key');
