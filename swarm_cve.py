@@ -69,14 +69,14 @@ def getCVEDetail(list):
 			try:
 				status=cursor.execute(sql)
 				if status==1:
-					sql= "UPDATE cves SET cve_description='%s',cve_references='%s',cve_phase='%s',cve_votes='%s',cve_comments='%s' WHERE cve_id='%s'" % (cve_description,cve_references,cve_phase,cve_votes,cve_comments,cve_id)
-					try:
-						cursor.execute(sql)
-						db.commit()
-						print "update successful!",cve_id
-					except:
-						print "update fail",cve_id
-						db.rollback()
+			sql= "UPDATE cves SET cve_description='%s',cve_references='%s',cve_phase='%s',cve_votes='%s',cve_comments='%s' WHERE cve_id='%s'" % (cve_description,cve_references,cve_phase,cve_votes,cve_comments,cve_id)
+			try:
+				cursor.execute(sql)
+				db.commit()
+				print "update successful!",cve_id
+			except:
+				print "update fail",cve_id
+				db.rollback()
 				else:
 					sql = '''INSERT INTO cves(cve_id,cve_description,cve_status,cve_references,cve_phase,cve_votes,cve_comments) VALUES ("%s","%s","%s","%s","%s","%s","%s")''' % (cve_id,cve_description,"none",cve_references,cve_phase,cve_votes,cve_comments)
 					try:
@@ -86,7 +86,7 @@ def getCVEDetail(list):
 					except:
 						db.rollback()
 			except:
-				print "query successful!",cve_id
+				print "query fail!",cve_id
 		db.close()
 		print("漏洞数据采集成功！")
 	except Exception as e:

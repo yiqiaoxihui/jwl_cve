@@ -11,11 +11,12 @@
                     <th>编号</th>
                     <th>扫描目标</th>
                     <th >扫描类型</th>
-                    <th style="overflow: hidden;width: 35%;">描述</th>
+                    <th >描述</th>
                     <th >对应漏洞</th>
                     <th >扫描状态</th>
-                    <th >扫描结果</th>
-                    <th>创建时间</th>
+                    <th style="width: 35%;">扫描结果</th>
+                    <th style="width: 7%;">创建时间</th>
+                    <th style="width: 7%;">完成时间</th>
                     <th>管理</th>
                 </tr>
             </thead>
@@ -31,7 +32,7 @@
                     <td >
                         {{$scan->rule->script_name}}
                     </td>
-                    <td >{{$scan->rule->script_descrption}}</td>
+                    <td style="max-width:200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap" title="{{$scan->rule->script_descrption}}">{{$scan->rule->script_descrption}}</td>
                     <td >
                     {{$scan->rule->cve_id}}
                     </td>
@@ -46,8 +47,9 @@
                         
                     </td>
 
-                    <td >{{$scan->scan_result}}</td>
+                    <td >{!!$scan->scan_result!!}</td>
                     <td >{{$scan->created_at}}</td>
+                    <td >{{$scan->updated_at}}</td>
                     <td width="14%">
                         <button class="btn btn-danger"type="button" onclick="scan_result_delete({{$scan->id}})">删除</button>
                     </td>
