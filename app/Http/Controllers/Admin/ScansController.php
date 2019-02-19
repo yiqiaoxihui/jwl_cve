@@ -38,6 +38,7 @@ class ScansController extends Controller
         $scan->rule_id = $request->get('rule_id');
         $scan->host = $request->get('host');
         $scan->status = "0";
+        $scan->bug = "-1";
         if ($scan->save()) {
             return  json_encode($info);
         } else {

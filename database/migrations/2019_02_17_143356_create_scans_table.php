@@ -18,6 +18,7 @@ class CreateScansTable extends Migration
             $table->char('host',15);
             $table->char('status',5);
 	    $table->text('scan_result');
+	    $table->char('bug',5);
             $table->index('rule_id');
             $table->timestamps();
         });

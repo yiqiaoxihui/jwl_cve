@@ -66,7 +66,7 @@
                         </button>
                         <button class="btn btn-danger"type="button" onclick="rule_delete({{$rule->id}})">删除
                         </button>
-                        <button class="btn btn-info" type="button" onclick="new_scan({{$rule->id}})">扫描</button>
+                        <!-- <button class="btn btn-info" type="button" onclick="new_scan({{$rule->id}})">扫描</button> -->
                     </td>
                 </tr>
                 @endforeach

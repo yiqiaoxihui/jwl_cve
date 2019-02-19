@@ -15,6 +15,7 @@
                     <th >对应漏洞</th>
                     <th >扫描状态</th>
                     <th style="width: 35%;">扫描结果</th>
+                    <th >漏洞状态</th>
                     <th style="width: 7%;">创建时间</th>
                     <th style="width: 7%;">完成时间</th>
                     <th>管理</th>
@@ -48,6 +49,16 @@
                     </td>
 
                     <td >{!!$scan->scan_result!!}</td>
+                    <td >
+                        @if($scan->bug=="-1")
+                        <span style="color: #5cb85c">不明</span>
+                        @elseif($scan->bug=="0")
+                        <span style="color: #5bc0de">无此漏洞</span>
+                        @else
+                        <span style="color: #d9534f">存在漏洞</span>
+                        @endif
+                        
+                    </td>
                     <td >{{$scan->created_at}}</td>
                     <td >{{$scan->updated_at}}</td>
                     <td width="14%">
