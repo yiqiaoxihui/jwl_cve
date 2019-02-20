@@ -63,7 +63,7 @@ CREATE TABLE `cnvds` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `cnvds_cnvd_id_index` (`cnvd_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28305 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +86,7 @@ CREATE TABLE `cves` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `cves_cve_id_index` (`cve_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=145583 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=145653 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -286,6 +286,67 @@ CREATE TABLE `password_resets` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `patches`
+--
+
+DROP TABLE IF EXISTS `patches`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `patches` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cnvd_id` char(20) COLLATE utf8_unicode_ci NOT NULL,
+  `patch_description` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `patchs_cnvd_id_index` (`cnvd_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28452 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `rules`
+--
+
+DROP TABLE IF EXISTS `rules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rules` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cve_id` char(20) COLLATE utf8_unicode_ci NOT NULL,
+  `script_name` char(255) COLLATE utf8_unicode_ci NOT NULL,
+  `script_descrption` text COLLATE utf8_unicode_ci NOT NULL,
+  `script_argv` char(30) COLLATE utf8_unicode_ci NOT NULL,
+  `port` char(5) COLLATE utf8_unicode_ci NOT NULL,
+  `reg` char(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `rules_cve_id_index` (`cve_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `scans`
+--
+
+DROP TABLE IF EXISTS `scans`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `scans` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rule_id` int(11) NOT NULL,
+  `host` char(15) COLLATE utf8_unicode_ci NOT NULL,
+  `status` char(5) COLLATE utf8_unicode_ci NOT NULL COMMENT '0,未扫描，1扫描结束，-1，扫描失败',
+  `scan_result` text COLLATE utf8_unicode_ci NOT NULL,
+  `bug` char(5) COLLATE utf8_unicode_ci NOT NULL COMMENT '1,有漏洞，0无漏洞',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `scans_rule_id_index` (`rule_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `servers`
 --
 
@@ -381,4 +442,4 @@ CREATE TABLE `virusKill` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-15  8:36:32
+-- Dump completed on 2019-02-20 14:28:07
