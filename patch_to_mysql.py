@@ -1,7 +1,4 @@
-#author		 heaven
-#date		 2019/2/1
-#脚本描述	 将补丁信息导入到数据库中
-#脚本使用说明 python patch_to_mysql.py 补丁文件所在的目录
+
 import os
 import sys
 import xml.etree.ElementTree as ET
@@ -13,17 +10,12 @@ import time
 
 global db,cursor
 
-
-def auto_download_cnvd(file_dir):
+def auto_download_cnvd():
 	sums=0
 	fail=0
-	try:
-		os.makedirs(file_dir)
-	except Exception as e:
-		raise e
 	for i in range(357,532):
 		try:
-			cmd = 'wget -P '+file_dir+'-c http://www.cnvd.org.cn/shareData/download/'+str(i)
+			cmd = 'wget -c http://www.cnvd.org.cn/shareData/download/'+str(i)
 			print cmd
 			#print "begin"
 			status = subprocess.call(cmd,shell=True)
@@ -49,7 +41,7 @@ def deal_mutil_file(file_dir):
 				print e,file
 
 def parse_and_insert(file_path):
-	tree = ET.parse(file_path)								#解析xml数据
+	tree = ET.parse(file_path)
 	root = tree.getroot()
 	#print root.tag
 	#print root.attrib
@@ -64,8 +56,8 @@ def parse_and_insert(file_path):
 		sql="select * from patchs where cnvd_id='%s'" % cnvd_id
 		#print sql
 		try:
-			status=cursor.execute(sql)						#先查看是否存在该记录
-			if status==1:									#然后更新/插入
+			status=cursor.execute(sql)
+			if status==1:
 				sql= "UPDATE patchs SET patch_description='%s'WHERE cnvd_id='%s'" % (patch_description,cnvd_id)
 				#print sql
 				try:
@@ -89,7 +81,7 @@ def parse_and_insert(file_path):
 def main():
 	file_dir=sys.argv[1]
 	global db,cursor
-	try:												#连接数据库
+	try:
 		db = pymysql.connect("localhost","root","yiqiaoxihui","cve")
 		print("connect mysql successful")
 		cursor = db.cursor()
