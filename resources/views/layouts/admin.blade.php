@@ -84,7 +84,7 @@
                <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="{{url("admin/cve")}}">CVE漏洞库管理</a></li>
+              <li><a href="{{url("admin")}}">CVE漏洞库管理</a></li>
               <li><a href="{{url("admin/cnvd")}}">CNVD漏洞库管理</a></li>
               <li><a href="{{url("admin/cveToday")}}">最新漏洞</a></li>
             </ul>

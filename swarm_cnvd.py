@@ -1,7 +1,8 @@
 #author		 heaven
-#date		 2019/2/1
-#脚本描述	 将补丁信息导入到数据库中
-#脚本使用说明 python patch_to_mysql.py 补丁文件所在的目录
+#date		 2019/2/3
+#脚本描述	 将cnvd漏洞信息导入到数据库中
+#脚本使用说明 python patch_to_mysql.py 文件所在的目录
+
 import os
 import sys
 import xml.etree.ElementTree as ET
@@ -10,9 +11,9 @@ import re
 import pymysql
 import subprocess
 import time
+import os
 
 global db,cursor
-
 
 def auto_download_cnvd(file_dir):
 	sums=0
@@ -49,24 +50,48 @@ def deal_mutil_file(file_dir):
 				print e,file
 
 def parse_and_insert(file_path):
-	tree = ET.parse(file_path)								#解析xml数据
+	tree = ET.parse(file_path)
 	root = tree.getroot()
 	#print root.tag
 	#print root.attrib
 	for item in root.findall('vulnerability'):
-		patch_description=""
+		patchName=""
+		cnvd_formalWay=""
+		cnvd_patch=""
+		description=""
 		cnvd_id=item.find("number").text
+		cnvd_serverity=item.find("serverity").text
+		cnvd_title=item.find("title").text
+		cnvd_products=""
 		try:
-			patch_description=item.find("formalWay").text
+			for p in item.find("products").iter('product'):
+				cnvd_products=cnvd_products+p.text+" | "
+			if cnvd_products!="":
+				cnvd_products=cnvd_products[:-1]
+		except Exception as e:
+			print "no find cnvd_products"
+		#print cnvd_products
+		try:
+			cnvd_description=item.find("description").text
+		except Exception as e:
+			print "no find cnvd_description"
+		#products=item.find("products").text
+		try:
+			cnvd_formalWay=item.find("formalWay").text
 		except Exception as e:
 			print "no find cnvd_formalWay"
+		try:
+			cnvd_patch=item.find("patchName").text
+		except Exception as e:
+			print "no find cnvd_patch"
+		cnvd_submitTime=item.find("submitTime").text
 		#print patchName
-		sql="select * from patchs where cnvd_id='%s'" % cnvd_id
+		sql="select * from cnvds where cnvd_id='%s'" % cnvd_id
 		#print sql
 		try:
-			status=cursor.execute(sql)						#先查看是否存在该记录
-			if status==1:									#然后更新/插入
-				sql= "UPDATE patchs SET patch_description='%s'WHERE cnvd_id='%s'" % (patch_description,cnvd_id)
+			status=cursor.execute(sql)
+			if status==1:
+				sql= "UPDATE cnvds SET cnvd_title='%s',cnvd_description='%s',cnvd_serverity='%s',cnvd_products='%s',cnvd_formalWay='%s',cnvd_patch='%s',cnvd_submitTime='%s' WHERE cnvd_id='%s'" % (cnvd_title,cnvd_description,cnvd_serverity,cnvd_products,cnvd_formalWay,cnvd_patch,cnvd_submitTime,cnvd_id)
 				#print sql
 				try:
 					cursor.execute(sql)
@@ -76,7 +101,7 @@ def parse_and_insert(file_path):
 					print "update fail",cnvd_id
 					db.rollback()
 			else:
-				sql = '''INSERT INTO patchs(patch_description,cnvd_id) VALUES ("%s","%s")''' % (patch_description,cnvd_id)
+				sql = '''INSERT INTO cnvds(cnvd_title,cnvd_description,cnvd_serverity,cnvd_products,cnvd_formalWay,cnvd_patch,cnvd_submitTime,cnvd_id) VALUES ("%s","%s","%s","%s","%s","%s","%s","%s")''' % (cnvd_title,cnvd_description,cnvd_serverity,cnvd_products,cnvd_formalWay,cnvd_patch,cnvd_submitTime,cnvd_id)
 				try:
 					cursor.execute(sql)
 					db.commit()
@@ -88,8 +113,9 @@ def parse_and_insert(file_path):
 
 def main():
 	file_dir=sys.argv[1]
+	# auto_download_cnvd(file_dir)
 	global db,cursor
-	try:												#连接数据库
+	try:
 		db = pymysql.connect("localhost","root","yiqiaoxihui","cve")
 		print("connect mysql successful")
 		cursor = db.cursor()

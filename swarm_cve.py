@@ -1,4 +1,10 @@
 #coding=utf8
+#author		 heaven
+#date		 2019/2/1
+#脚本描述	 将cnvd漏洞信息导入到数据库中
+#脚本使用说明 python swarm_cve.py
+
+
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -11,16 +17,14 @@ headers["Accept-Language"] = "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3"
 headers["Accept-Encoding"] = "gzip, deflate"
 headers["Upgrade-Insecure-Requests"] = "1"
  
-def getMiddleStr(content, startStr, endStr):#写一个函数获取网页某个范围的源码
+def getMiddleStr(content, startStr, endStr):
 	startIndex = content.index(startStr)
 	if startIndex >= 0:
 		startIndex += len(startStr)
 		endIndex = content.index(endStr)
-		#print(endIndex)
-		#print(content[startIndex:endIndex])
 	return content[startIndex:endIndex]
  
-def getCVES():# 获取最新到CVE链接，返回链接的列表
+def get_cves():# 获取最新到CVE链接，返回链接的列表
 	try:
 		url = 'https://cassandra.cerias.purdue.edu/CVE_changes/today.html'
 		res = requests.get(url, headers=headers, timeout=60)
@@ -36,17 +40,17 @@ def getCVES():# 获取最新到CVE链接，返回链接的列表
 	except Exception as e:
 		print(e)
  
-def getCVEDetail(list):
+def get_cve_today(list):
 	try:
-		db = pymysql.connect("localhost","root","yiqiaoxihui","cve")
+		db = pymysql.connect("localhost","root","yiqiaoxihui","cve")		#连接数据库
 		print("连接数据库成功！")
 		cursor = db.cursor()
-		print("开始采集漏洞信息入库！")
+		print("开始采集CVE漏洞信息入库！")
 		for uri in list:
 			print("\n\n")
 			print(uri)
-			res = requests.get(uri,headers=headers,timeout=60)
-			soup = BeautifulSoup(res.text,"html.parser")
+			res = requests.get(uri,headers=headers,timeout=60)			#获取网页源代码
+			soup = BeautifulSoup(res.text,"html.parser")				#解析网页标签
 			cve_id = str(soup.find(nowrap="nowrap").find("h2").string)
 			table = soup.find(id = "GeneratedTable").find("table")
 			cve_description = table.find_all("tr")[3].find("td").string
@@ -59,13 +63,12 @@ def getCVEDetail(list):
 			ss = getMiddleStr(s,"References","Assigning CNA")
 			urls=re.findall(r"<a.*?href=.*?<\/a>",ss,re.I)
 			Reference = []
-			for i in urls[1:]:
+			for i in urls[1:]:											#提取参考链接
 				Reference.append(i.split(">")[1].split("<")[0])
 			cve_references = ",".join(Reference)
-			args = (cve_id,cve_description,Assigning_CNA,Data_Entry_Created,cve_references)
 			print cve_id,cve_phase
-			sql="select * from cves where cve_id='%s'" % cve_id
-			print sql
+			sql="select * from cves where cve_id='%s'" % cve_id 		#先查看是否存在该记录
+			print sql													#然后更新/插入
 			try:
 				status=cursor.execute(sql)
 				if status==1:
@@ -94,6 +97,6 @@ def getCVEDetail(list):
  
 if __name__ == "__main__":
 	while True:
-		getCVEDetail(getCVES())
+		get_cve_today(get_cves())
 		print "wait for next..."
 		time.sleep(86400)

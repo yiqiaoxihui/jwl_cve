@@ -1,4 +1,10 @@
 #coding=utf8
+#author		 heaven
+#date		 2019/2/13
+#脚本描述	 执行扫描任务
+#脚本使用说明 python scan.py 
+
+
 import requests
 import re
 import pymysql

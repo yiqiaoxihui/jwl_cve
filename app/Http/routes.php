@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function() {
 });
 //漏洞库
 Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'admin'], function() {  
-    Route::get('cve', 'HomeController@index');
+    Route::get('/', 'HomeController@index');
     Route::get('cveToday', 'HomeController@cve_today');
     Route::post('addCve', 'HomeController@cve_add');
     Route::get('cveEdit/{id}', 'HomeController@cve_edit');
@@ -87,77 +87,77 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'scan']
     Route::get('scanRecord', 'ScansController@scanRecord');
     Route::post('scanDelete', 'ScansController@scanDelete');
 });
-//同期比
-Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'image'], function() {  
+//
+// Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'image'], function() {  
     
-    Route::get('base', 'ImagesController@base');
-    Route::post('baseAdd', 'ImagesController@baseAdd');
-    Route::get('baseEdit/{id}', 'ImagesController@baseEdit');
-    Route::post('baseEditOk', 'ImagesController@baseEditOk'); 
-    Route::post('baseStart', 'ImagesController@baseStart');
-    Route::post('baseStop', 'ImagesController@baseStop'); 
-    Route::post('baseDelete', 'ImagesController@baseDelete'); 
+//     Route::get('base', 'ImagesController@base');
+//     Route::post('baseAdd', 'ImagesController@baseAdd');
+//     Route::get('baseEdit/{id}', 'ImagesController@baseEdit');
+//     Route::post('baseEditOk', 'ImagesController@baseEditOk'); 
+//     Route::post('baseStart', 'ImagesController@baseStart');
+//     Route::post('baseStop', 'ImagesController@baseStop'); 
+//     Route::post('baseDelete', 'ImagesController@baseDelete'); 
    
-    Route::get('overlay', 'ImagesController@overlay');
-    Route::get('overlay/{base_id}', 'ImagesController@overlayChoose');
-    Route::post('overlayAdd', 'ImagesController@overlayAdd');
-    Route::get('overlayEdit/{id}', 'ImagesController@overlayEdit');
-    Route::post('overlayEditOk', 'ImagesController@overlayEditOk');   
-    Route::post('getBaseimageByServer', 'ImagesController@getBaseimageByServer');   
-    Route::post('overlayStart', 'ImagesController@overlayStart');
-    Route::post('overlayStop', 'ImagesController@overlayStop'); 
-    Route::post('overlayDelete', 'ImagesController@overlayDelete'); 
+//     Route::get('overlay', 'ImagesController@overlay');
+//     Route::get('overlay/{base_id}', 'ImagesController@overlayChoose');
+//     Route::post('overlayAdd', 'ImagesController@overlayAdd');
+//     Route::get('overlayEdit/{id}', 'ImagesController@overlayEdit');
+//     Route::post('overlayEditOk', 'ImagesController@overlayEditOk');   
+//     Route::post('getBaseimageByServer', 'ImagesController@getBaseimageByServer');   
+//     Route::post('overlayStart', 'ImagesController@overlayStart');
+//     Route::post('overlayStop', 'ImagesController@overlayStop'); 
+//     Route::post('overlayDelete', 'ImagesController@overlayDelete'); 
 
-});
+// });
 //
-Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'file'], function() {  
-    //
-    Route::get('fileInfo', 'FilesController@fileInfo');
-    Route::get('fileInfo/{overlay_id}', 'FilesController@fileInfoChoose');
-    Route::post('fileAdd', 'FilesController@fileAdd');
-    //detect
+// Route::group(['middleware' => 'auth','namespace' => 'Admin', 'prefix' => 'file'], function() {  
+//     //
+//     Route::get('fileInfo', 'FilesController@fileInfo');
+//     Route::get('fileInfo/{overlay_id}', 'FilesController@fileInfoChoose');
+//     Route::post('fileAdd', 'FilesController@fileAdd');
+//     //detect
     
-    Route::post('fileRestore', 'FilesController@fileRestore');
-    Route::post('fileRestoreCancel', 'FilesController@fileRestoreCancel');
-    Route::post('fileStart', 'FilesController@fileStart');
-    Route::post('fileStop', 'FilesController@fileStop');
-    Route::get('fileEdit/{id}', 'FilesController@fileEdit');
-    Route::post('fileEditOk', 'FilesController@fileEditOk'); 
-    Route::post('fileDelete', 'FilesController@fileDelete');
-    Route::post('getBaseimageByServer', 'FilesController@getBaseimageByServer');
-    Route::post('getOverlayByBase', 'FilesController@getOverlayByBase');
-    //
-    Route::get('fileRestoreInfo', 'FilesController@fileRestoreInfo');
-    Route::post('fileReset', 'FilesController@fileReset');
-    Route::get('fileRestoreRecord', 'FilesController@fileRestoreRecord');
-    Route::get('fileRestoreRecord/{overlay_id}', 'FilesController@fileRestoreRecordChoose');
-    Route::get('fileScan', 'FilesController@fileScan');
-    Route::get('fileScanRecord', 'FilesController@fileScanRecord');
-    Route::post('fileScanStart', 'FilesController@fileScanStart');
-    Route::post('fileScanStop', 'FilesController@fileScanStop');
-    //Route::get('fileRestoreNew', 'FilesController@fileRestoreNew');
-});
-Route::group(['middleware' => 'auth','namespace' => 'Admin','prefix' => 'virus'], function() {  
-    //
-    Route::get('virus', 'VirusController@virus');
-    Route::post('virusAdd', 'VirusController@virusAdd');
-    Route::post('virusDelete', 'VirusController@virusDelete');
-    Route::get('virusEdit/{id}', 'VirusController@virusEdit');
-    Route::post('virusEditOk', 'VirusController@virusEditOk'); 
-    Route::get('virusRecord', 'VirusController@virusRecord');
-    Route::post('virusRecordDelete', 'VirusController@virusRecordDelete'); 
+//     Route::post('fileRestore', 'FilesController@fileRestore');
+//     Route::post('fileRestoreCancel', 'FilesController@fileRestoreCancel');
+//     Route::post('fileStart', 'FilesController@fileStart');
+//     Route::post('fileStop', 'FilesController@fileStop');
+//     Route::get('fileEdit/{id}', 'FilesController@fileEdit');
+//     Route::post('fileEditOk', 'FilesController@fileEditOk'); 
+//     Route::post('fileDelete', 'FilesController@fileDelete');
+//     Route::post('getBaseimageByServer', 'FilesController@getBaseimageByServer');
+//     Route::post('getOverlayByBase', 'FilesController@getOverlayByBase');
+//     //
+//     Route::get('fileRestoreInfo', 'FilesController@fileRestoreInfo');
+//     Route::post('fileReset', 'FilesController@fileReset');
+//     Route::get('fileRestoreRecord', 'FilesController@fileRestoreRecord');
+//     Route::get('fileRestoreRecord/{overlay_id}', 'FilesController@fileRestoreRecordChoose');
+//     Route::get('fileScan', 'FilesController@fileScan');
+//     Route::get('fileScanRecord', 'FilesController@fileScanRecord');
+//     Route::post('fileScanStart', 'FilesController@fileScanStart');
+//     Route::post('fileScanStop', 'FilesController@fileScanStop');
+//     //Route::get('fileRestoreNew', 'FilesController@fileRestoreNew');
+// });
+// Route::group(['middleware' => 'auth','namespace' => 'Admin','prefix' => 'virus'], function() {  
+//     //
+//     Route::get('virus', 'VirusController@virus');
+//     Route::post('virusAdd', 'VirusController@virusAdd');
+//     Route::post('virusDelete', 'VirusController@virusDelete');
+//     Route::get('virusEdit/{id}', 'VirusController@virusEdit');
+//     Route::post('virusEditOk', 'VirusController@virusEditOk'); 
+//     Route::get('virusRecord', 'VirusController@virusRecord');
+//     Route::post('virusRecordDelete', 'VirusController@virusRecordDelete'); 
 
 
-});
+// });
 //
-Route::group(['middleware' => 'auth','namespace' => 'Admin','prefix' => 'database'], function() {  
-    //
-    Route::get('dataBase', 'DatabaseController@dataBase');
-    Route::get('dataBaseEdit/{id}', 'DatabaseController@dataBaseEdit');
-    Route::post('dataBaseEditOk', 'DatabaseController@dataBaseEditOk'); 
+// Route::group(['middleware' => 'auth','namespace' => 'Admin','prefix' => 'database'], function() {  
+//     //
+//     Route::get('dataBase', 'DatabaseController@dataBase');
+//     Route::get('dataBaseEdit/{id}', 'DatabaseController@dataBaseEdit');
+//     Route::post('dataBaseEditOk', 'DatabaseController@dataBaseEditOk'); 
 
 
-});
+// });
 //
 Route::group(['middleware' => 'auth','namespace' => 'Admin','prefix' => 'user'], function() {  
     //
